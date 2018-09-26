@@ -38,6 +38,40 @@ class Album
     return result.map {|album| Album.new(album)}
   end
 
+  def self.list_album(id)
+    sql = '
+      SELECT title FROM albums WHERE artist_id = $1;
+    '
+    results = SqlRunner.run(sql,[id])
+    albums = results.map do |album_hash|
+      Album.new(album_hash)
+    end
+    return albums
+  end
+
+  def self.show_album_genre(id)
+    sql = 'SELECT genre FROM albums WHERE id = $1;'
+    result = SqlRunner.run(sql,[id])
+    # binding.pry
+    return result[0]['genre']
+  end
+
+  def self.show_album_title(id)
+    sql = 'SELECT title FROM albums WHERE id = $1;'
+    result = SqlRunner.run(sql,[id])
+    # binding.pry
+    return result[0]['title']
+  end
+
+  def update(name)
+    sql='
+      UPDATE albums
+      SET genre = $1
+      WHERE id = $2
+    ;'
+    # binding.pry
+    SqlRunner.run(sql,[name,@id])
+  end
 
 
 end

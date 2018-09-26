@@ -37,6 +37,13 @@ class Artist
     return artist_objects
   end
 
+  def self.show_artist(id)
+    sql = 'SELECT name FROM artists WHERE id = $1;'
+    result = SqlRunner.run(sql,[id])
+    # binding.pry
+    return result[0]['name']
+  end
+
   def self.find(id)
     sql = 'SELECT name FROM artists WHERE id = $1;'
     results = SqlRunner.run(sql,[id])
@@ -46,4 +53,19 @@ class Artist
     return artist
   end
 
+  def self.find_one(input_id)
+    sql = "SELECT name FROM artists WHERE id = $1;"
+    result = SqlRunner.run(sql,[input_id])
+    return result[0]['name']
+  end
+
+  def update(name)
+    sql='
+      UPDATE artists
+      SET name = $1
+      WHERE id = $2
+    ;'
+    # binding.pry
+    SqlRunner.run(sql,[name,@id])
+  end
 end

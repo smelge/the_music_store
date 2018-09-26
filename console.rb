@@ -57,11 +57,26 @@ Artist.list().each do |artist|
   p artist.name
 end
 # List all albums by a specific artist
-
+output = Album.list_album(artist2.id)
+p "#{artist2.name} has released: "
+output.each do |album|
+  p album.title
+end
 # Show who the artist is for an albums
-
+output = Artist.show_artist(album1.artist_id)
+p "#{album1.title} was made by #{output}"
 #update artist
+p "New Artist Name: Jeff"
+new_name = "Jeff"
+artist1.update(new_name)
+p Artist.show_artist(artist3.id)
 
 # update album
+p "New Album Genre: Scat"
+new_name = "Scat"
+album2.update(new_name)
+p Album.show_album_genre(album2.id)
 
 # find artist and albums by id
+p Artist.show_artist(artist2.id)
+p Album.show_album_title(album3.id)
